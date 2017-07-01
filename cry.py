@@ -27,19 +27,26 @@ def parse_page_data(data):
         details[required_info[1].get_text().encode('utf-8')] = str(data[1].encode('utf-8')).split(':')[1]
         details[required_info[2].get_text().encode('utf-8')] = str(data[2].encode('utf-8')).split(':')[1]
         details[required_info[3].get_text().encode('utf-8')] = str(data[3].encode('utf-8')).split(':')[1]
-        details[required_info[4].get_text().encode('utf-8')] = str(all_data[19].encode('utf-8'))
+        details[required_info[4].get_text().encode('utf-8')] = str(all_data[19].encode('utf-8')).lstrip()
         all_listings.append(details)
         break
     return all_listings
 
 def start():
+    print '-'*100
+    print '\t \t Scraping CRY website (%s)' % url
+    print '-'*100
     relevant_data = get_page_data(url)
     parsed_data = parse_page_data(relevant_data)
     display_parsed_data(parsed_data)
 
 def display_parsed_data(data):
-    for detail in data:
+    print '\n \t \t Openings Found : '
+    for idx, detail in enumerate(data):
+        print '_' * 10
+        print '  ', idx+1
+        print '_' * 10
         for key in detail:
-            print key, type(key), ' : ', detail[key], type(detail[key])
+            print '\t ', key, ' : ', detail[key]
 
 start()
